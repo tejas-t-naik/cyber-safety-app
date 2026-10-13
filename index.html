@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cyber Safety and Digital Fraud Awareness App</title>
+<style>
+:root{--bg:#f4f7f9;--card:#fff;--ink:#12263a;--mute:#4c6072;--line:#d5dee5;--brand:#0b5f73;--on:#fff;--bad:#b3261e;--badbg:#fbe9e7;--ok:#1b7a50;--okbg:#e3f4ea;--warn:#fff4d6;--fs:18px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1a24;--card:#152633;--ink:#e8eff4;--mute:#a3b5c3;--line:#2a4052;--brand:#5cc3d8;--on:#06222b;--bad:#ff9a92;--badbg:#3a1f1d;--ok:#79d9a6;--okbg:#17332a;--warn:#3a3217}}
+:root[data-theme="dark"]{--bg:#0d1a24;--card:#152633;--ink:#e8eff4;--mute:#a3b5c3;--line:#2a4052;--brand:#5cc3d8;--on:#06222b;--bad:#ff9a92;--badbg:#3a1f1d;--ok:#79d9a6;--okbg:#17332a;--warn:#3a3217}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:var(--fs)/1.5 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;padding-bottom:84px}
+header{padding:20px 20px 12px;max-width:760px;margin:0 auto}
+h1{font-size:1.5em;line-height:1.2;margin:0 0 4px}
+.sub{color:var(--mute);margin:0;font-size:.9em}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+main{max-width:760px;margin:0 auto;padding:0 20px 24px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;max-width:190px;min-height:64px;background:none;border:0;color:var(--mute);font:inherit;font-size:.8em;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+nav button .i{font-size:1.5em;line-height:1}
+nav button[aria-selected=true]{color:var(--brand);box-shadow:inset 0 3px 0 var(--brand)}
+button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.btn{font:inherit;font-weight:600;border:2px solid var(--brand);background:var(--brand);color:var(--on);border-radius:10px;padding:12px 18px;min-height:48px;cursor:pointer}
+.btn.alt{background:none;color:var(--brand)}
+.seg{display:flex;gap:8px;margin:8px 0 16px}
+.seg .btn{flex:1}
+.seg .btn:not([aria-pressed=true]){background:none;color:var(--brand)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 12px}
+details.card{padding:0}
+summary{padding:16px;cursor:pointer;font-weight:700;list-style:none;display:flex;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";margin-left:auto;font-size:1.4em;color:var(--brand)}
+details[open] summary::after{content:"−"}
+.body{padding:0 16px 16px}
+.body h4{margin:12px 0 4px;font-size:.9em;color:var(--mute)}
+.body ul{margin:0;padding-left:22px}
+.tag{font-size:.7em;font-weight:700;border-radius:99px;padding:2px 10px;background:var(--warn);color:var(--ink);white-space:nowrap}
+.msg{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:16px;margin:8px 0 16px}
+.msg small{display:block;color:var(--mute);margin-bottom:6px}
+.msg p{margin:0;font-size:1.05em}
+.row{display:flex;gap:12px}
+.row .btn{flex:1}
+.fb{border-radius:12px;padding:14px 16px;margin:16px 0}
+.fb.good{background:var(--okbg);color:var(--ok)}
+.fb.miss{background:var(--badbg);color:var(--bad)}
+.fb p{margin:6px 0 0;color:var(--ink)}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden;margin:8px 0 16px}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+label.chk{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;cursor:pointer}
+label.chk input{width:26px;height:26px;margin:2px 0 0;flex:none;accent-color:var(--brand)}
+.big{font-size:2em;font-weight:800;color:var(--brand);margin:0}
+a{color:var(--brand);font-weight:600}
+.hide{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div><h1>Cyber Safety Guide</h1><p class="sub">Spot online scams. Stay safe online.</p></div>
+    <button class="btn alt" id="fs" aria-label="Make text larger">A+</button>
+  </div>
+</header>
+<main id="main"></main>
+<nav role="tablist" aria-label="Sections">
+  <button role="tab" data-t="learn"><span class="i">📚</span>Learn</button>
+  <button role="tab" data-t="spot"><span class="i">🔍</span>Spot the scam</button>
+  <button role="tab" data-t="habits"><span class="i">✅</span>Safe habits</button>
+  <button role="tab" data-t="report"><span class="i">🚨</span>Report</button>
+</nav>
+<script>
+const SCAMS=[
+{n:"OTP and bank-call fraud",a:"seniors",e:"📞",d:"A caller poses as your bank, KYC team or police and asks for an OTP, PIN or card number.",f:["Urgency: 'your account will be blocked today'","Asks for OTP, CVV, PIN or password","Caller ID looks official"],t:["Hang up. No bank ever asks for an OTP.","Call the number printed on your card or passbook","Tell a family member before acting"]},
+{n:"Phishing links (SMS, email, WhatsApp)",a:"all",e:"🎣",d:"A message with a link to a fake site made to steal logins or card details.",f:["Misspelt web address","Prize, refund or 'pending delivery' message","Link shortener hides the real site"],t:["Do not tap the link","Open the official app or type the website yourself","Delete and block the sender"]},
+{n:"Fake job and internship offers",a:"students",e:"💼",d:"An offer asks you to pay a registration, training or kit fee before you start.",f:["Real companies do not charge candidates","Offer with no interview","Contact only through WhatsApp or Telegram"],t:["Check the company on its official website","Never pay to get a job","Ask your placement cell"]},
+{n:"UPI collect-request and QR scams",a:"all",e:"📲",d:"A 'buyer' sends a payment request or QR code and asks you to approve or scan it to receive money.",f:["You must enter your UPI PIN to receive money","Buyer insists on QR scanning","Pressure to be quick"],t:["Money comes in without a PIN. A PIN means money goes out","Decline unknown collect requests","Share your UPI ID only, never your PIN"]},
+{n:"Lottery, gift and prize scams",a:"seniors",e:"🎁",d:"You 'won' a prize but must pay tax or a processing fee first.",f:["You never entered a contest","Fee required to claim","Prize from a famous brand"],t:["Ignore it. Real prizes cost nothing","Do not send money or documents","Report the number"]},
+{n:"Social media and loan-app traps",a:"students",e:"📱",d:"Fake profiles, instant-loan apps and 'invest and double' offers that later threaten or blackmail you.",f:["Loan app asks for contacts and gallery access","Guaranteed returns","Unknown friend requests asking for money"],t:["Install apps only from official stores and check permissions","Do not share photos or OTPs with strangers","Tell a trusted adult and report early"]},
+{n:"Digital arrest and fake police calls",a:"seniors",e:"🚔",d:"A caller claims you are involved in a crime and demands money while you stay on video call.",f:["Threats of arrest","Told to keep it secret","Demands payment to 'clear' your name"],t:["Police never arrest or take money over a call","Disconnect and call 1930","Talk to someone you trust"]}];
+const SPOT=[
+{from:"SMS from 'HDFC-ALERT'",m:"Dear customer, your account will be blocked in 2 hours. Update KYC now: bit.ly/kyc-upd8",s:true,w:"Urgency plus a shortened link. Banks do not block accounts by SMS link. Open your bank's official app instead."},
+{from:"Bank app notification",m:"Rs 450 debited at Cafe Mocha via UPI. If this was not you, call the number on the back of your card.",s:false,w:"This is a normal transaction alert. It asks for nothing and points you to the number on your card."},
+{from:"WhatsApp, unknown number",m:"Congratulations! You won Rs 25 lakh in the Jio Lucky Draw. Pay Rs 5,000 processing fee to claim.",s:true,w:"You cannot win a contest you did not enter, and real prizes never need a fee."},
+{from:"Email from 'Careers Team'",m:"Internship offer confirmed! Pay Rs 2,000 for your laptop kit and ID card to receive the joining letter.",s:true,w:"Genuine employers do not charge candidates. Verify on the company's official website."},
+{from:"Call from 'Cyber Police'",m:"A parcel in your name has illegal items. Stay on video call or you will be arrested. Do not tell anyone.",s:true,w:"Police do not do digital arrests. Secrecy and threats are the red flags. Hang up and call 1930."},
+{from:"College portal email",m:"Your semester fee receipt is attached. Log in at the college website you normally use to view all receipts.",s:false,w:"It asks nothing urgent and tells you to use the site you already know, not a link."},
+{from:"Buyer on a resale app",m:"I'll pay now. Scan this QR and enter your UPI PIN to receive the money.",s:true,w:"You never enter a PIN to receive money. Scanning and entering a PIN sends money out."}];
+const HABITS=["Never share OTP, PIN, CVV or passwords with anyone","Use a different strong password for each important account","Turn on two-step verification for email and banking","Check the web address before logging in","Install apps only from the official store","Keep phone and apps updated","Do not click links from unknown senders","Pause and ask a trusted person if something feels urgent","Keep UPI and bank alerts turned on","Save the helpline 1930 on your phone"];
+const $=s=>document.querySelector(s),M=$("#main");
+let aud="all",tab="learn",si=0,sc=0,ans=null,done=0;
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function learn(){const L={all:"Everyone",students:"Students",seniors:"Senior citizens"};
+M.innerHTML=`<div class="seg" role="group" aria-label="Show scams for">${Object.keys(L).map(k=>`<button class="btn" data-a="${k}" aria-pressed="${aud==k}">${L[k]}</button>`).join("")}</div>`+
+SCAMS.filter(s=>aud=="all"||s.a==aud||s.a=="all").map(s=>`<details class="card"><summary><span aria-hidden="true">${s.e}</span><span>${s.n}</span></summary><div class="body"><p>${s.d}</p><h4>Red flags</h4><ul>${s.f.map(x=>`<li>${x}</li>`).join("")}</ul><h4>What to do</h4><ul>${s.t.map(x=>`<li>${x}</li>`).join("")}</ul></div></details>`).join("");
+M.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{aud=b.dataset.a;learn()})}
+function spot(){if(si>=SPOT.length){const p=Math.round(sc/SPOT.length*100);
+M.innerHTML=`<div class="card"><p class="big">${sc} / ${SPOT.length}</p><p>${p>=80?"Great work. You spot scams well.":p>=50?"Good start. Review the Learn tab and try again.":"Scammers rely on speed. Read the Learn tab, then try again."}</p><button class="btn" id="rs">Play again</button></div>`;
+$("#rs").onclick=()=>{si=0;sc=0;ans=null;spot()};return}
+const q=SPOT[si];
+M.innerHTML=`<p class="sub">Message ${si+1} of ${SPOT.length} · Score ${sc}</p><div class="bar"><i style="width:${si/SPOT.length*100}%"></i></div><p>Is this message a scam or safe?</p><div class="msg"><small>${q.from}</small><p>${q.m}</p></div>`+
+(ans===null?`<div class="row"><button class="btn" data-g="1" style="background:var(--bad);border-color:var(--bad);color:var(--card)">Scam</button><button class="btn" data-g="0">Safe</button></div>`:
+`<div class="fb ${ans==q.s?"good":"miss"}"><b>${ans==q.s?"Correct":"Not quite"}: this is ${q.s?"a scam":"safe"}.</b><p>${q.w}</p></div><button class="btn" id="nx">${si+1<SPOT.length?"Next message":"See score"}</button>`);
+M.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{ans=b.dataset.g=="1";if(ans==q.s)sc++;spot()});
+const n=$("#nx");if(n)n.onclick=()=>{si++;ans=null;spot();scrollTo(0,0)}}
+function habits(){const d=store.get("habits",[]);
+M.innerHTML=`<p class="sub" id="hc">${d.length} of ${HABITS.length} habits done</p><div class="bar"><i id="hb" style="width:${d.length/HABITS.length*100}%"></i></div>`+
+HABITS.map((h,i)=>`<div class="card" style="padding:0"><label class="chk"><input type="checkbox" data-h="${i}" ${d.includes(i)?"checked":""}><span>${h}</span></label></div>`).join("");
+M.querySelectorAll("[data-h]").forEach(c=>c.onchange=()=>{let x=store.get("habits",[]);const i=+c.dataset.h;x=c.checked?[...new Set([...x,i])]:x.filter(v=>v!=i);store.set("habits",x);$("#hc").textContent=`${x.length} of ${HABITS.length} habits done`;$("#hb").style.width=x.length/HABITS.length*100+"%"})}
+function report(){M.innerHTML=`<div class="card"><p class="big">1930</p><p>National Cyber Crime Helpline (India). Call immediately if money was lost. Quick reports give the best chance of freezing the transfer.</p><a class="btn" style="display:inline-block;text-decoration:none" href="tel:1930">Call 1930</a></div>
+<div class="card"><h3 style="margin-top:0">If you have been scammed</h3><ol><li>Call 1930 and your bank right away</li><li>Block your card, UPI or net banking</li><li>Report at <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a></li><li>Save screenshots, numbers and transaction IDs</li><li>Change passwords on affected accounts</li><li>Tell a family member. You are not at fault.</li></ol></div>
+<div class="card"><h3 style="margin-top:0">Report a suspicious number or link</h3><p>Use the Chakshu option on the Sanchar Saathi portal to report suspected fraud calls, SMS and WhatsApp messages.</p><a href="https://sancharsaathi.gov.in" target="_blank" rel="noopener">sancharsaathi.gov.in</a></div>`}
+const V={learn,spot,habits,report};
+function go(t){tab=t;document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t==t));V[t]();scrollTo(0,0)}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.t));
+let big=store.get("big",false);function fs(){document.documentElement.style.setProperty("--fs",big?"22px":"18px");$("#fs").textContent=big?"A−":"A+";$("#fs").setAttribute("aria-label",big?"Make text smaller":"Make text larger")}
+$("#fs").onclick=()=>{big=!big;store.set("big",big);fs()};fs();go("learn");
+</script>
+</body>
+</html>
